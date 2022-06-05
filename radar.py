@@ -25,11 +25,16 @@ def _Radar_callback(radar_data, vehicle, world):
     for detection in radar_data:
         distance_name_data["distance"] = detection.depth
 
-        if distance_name_data["distance"] > 6 and distance_name_data['distance'] < 8:
+        if distance_name_data["distance"] > 6 and distance_name_data['distance'] < 7:
             print("Slowing down car speed")
             vehicle.apply_control(carla.VehicleControl(throttle=0))
-            vehicle.apply_control(
-                carla.VehicleControl(hand_brake=True))
+            vehicle.apply_control(carla.VehicleControl(hand_brake=True))
+
+        elif distance_name_data["distance"] > 7 and distance_name_data['distance'] < 7.5:
+                print("Speeding up")
+                vehicle.apply_control(carla.VehicleControl(hand_brake=False))
+                vehicle.apply_control(carla.VehicleControl(throttle=0.3))
+
 
         break
 
